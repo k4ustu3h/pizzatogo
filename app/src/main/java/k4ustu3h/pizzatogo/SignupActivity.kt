@@ -3,23 +3,22 @@ package k4ustu3h.pizzatogo
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
-import k4ustu3h.pizzatogo.databinding.ActivityLoginBinding
+import k4ustu3h.pizzatogo.databinding.ActivitySignupBinding
 
-class LoginActivity : AppCompatActivity() {
+
+class SignupActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivitySignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -35,29 +34,32 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.loginButton.setOnClickListener {
-            loginUserAccount()
+        binding.signupButton.setOnClickListener {
+            signupNewUser()
         }
 
-        binding.signupButton.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
+        binding.loginButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun loginUserAccount() {
+    private fun signupNewUser() {
+
         val email = binding.emailTextInput.text.toString()
         val password = binding.passwordTextInput.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "please enter credentials", Toast.LENGTH_LONG).show()
         } else {
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Login successful!!", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this, MainActivity::class.java))
+                    Toast.makeText(this, "Registration successful!", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
                 } else {
-                    Toast.makeText(this, "Login failed!!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this, "Registration failed!!" + " Please try again later", Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
