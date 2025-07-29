@@ -2,14 +2,17 @@ package k4ustu3h.pizzatogo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 import k4ustu3h.pizzatogo.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +33,28 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        auth = FirebaseAuth.getInstance()
+
         binding.loginButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            loginUserAccount()
+        }
+    }
+
+    private fun loginUserAccount() {
+        val email = binding.emailTextInput.text.toString()
+        val password = binding.passwordTextInput.text.toString()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "please enter credentials", Toast.LENGTH_LONG).show()
+        } else {
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Login successful!!", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    Toast.makeText(this, "Login failed!!", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }

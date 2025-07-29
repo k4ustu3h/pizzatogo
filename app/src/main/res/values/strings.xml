@@ -6,6 +6,6 @@
     <string name="password">Password</string>
     <string name="remember">Remember me</string>
     <string name="signup">Sign up</string>
-    <string name="username">Username</string>
+    <string name="email">E-mail</string>
     <string name="welcome">Welcome to Pizza To Go</string>
 </resources>
