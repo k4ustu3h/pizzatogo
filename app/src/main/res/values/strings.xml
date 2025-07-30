@@ -3,9 +3,11 @@
     <string name="email">E-mail</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login">Login</string>
+    <string name="menu">Menu</string>
     <string name="or">OR</string>
     <string name="password">Password</string>
     <string name="remember">Remember me</string>
+    <string name="searchbar_hint">Search your pizza here</string>
     <string name="signup">Sign up</string>
     <string name="welcome">Welcome to Pizza To Go</string>
 </resources>
