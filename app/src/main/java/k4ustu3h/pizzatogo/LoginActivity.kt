@@ -1,10 +1,13 @@
 package k4ustu3h.pizzatogo
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         auth = FirebaseAuth.getInstance()
+        sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("rememberMe", false) && auth.currentUser != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
 
         binding.loginButton.setOnClickListener {
             loginUserAccount()
@@ -55,7 +65,18 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login successful!!", Toast.LENGTH_LONG).show()
+
+                    if (binding.rememberCheckbox.isChecked) {
+                        sharedPreferences.edit {
+                            putBoolean("rememberMe", true)
+                        }
+                    } else {
+                        sharedPreferences.edit {
+                            putBoolean("rememberMe", false)
+                        }
+                    }
                     startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 } else {
                     Toast.makeText(this, "Login failed!!", Toast.LENGTH_LONG).show()
                 }
