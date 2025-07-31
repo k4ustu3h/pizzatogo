@@ -54,44 +54,45 @@
                 android:scrollbarSize="0dp">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:layout_width="match_parent"
+                    android:id="@+id/chipGroup"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:singleLine="true">
+                    app:singleLine="true"
+                    app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_1"
+                        android:id="@+id/chip_all"
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Category" />
+                        android:text="@string/all" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_2"
+                        android:id="@+id/chip_veg"
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="false"
-                        android:text="Category" />
+                        android:text="@string/veg" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_3"
+                        android:id="@+id/chip_non_veg"
                         style="@style/Widget.Material3.Chip.Filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="false"
-                        android:text="Category" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_4"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Category" />
+                        android:text="@string/non_veg" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pizzaRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_pizza_grid_card" />
 
         </LinearLayout>
 
@@ -106,6 +107,5 @@
         </com.google.android.material.search.SearchView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 </FrameLayout>
