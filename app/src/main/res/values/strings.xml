@@ -1,9 +1,11 @@
 <resources>
+    <string name="account">Account</string>
     <string name="all">All</string>
     <string name="app_name">Pizza To Go</string>
     <string name="email">E-mail</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="menu">Menu</string>
     <string name="non_veg">Non-Vegetarian</string>
     <string name="or">OR</string>
